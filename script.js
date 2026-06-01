@@ -5580,65 +5580,92 @@ const questions = [
         correct: 2
     }
 ];
-function renderTest() {
+    const QUESTIONS_PER_PAGE = 10;
+    let currentPage = 0;         
+    let totalPages = Math.ceil(questions.length / QUESTIONS_PER_PAGE);
+    
+    let userAnswers = new Array(questions.length).fill(null); 
+
     const container = document.getElementById('test-container');
-    container.innerHTML = '';
-
-    questions.forEach((q, idx) => {
-        const questionDiv = document.createElement('div');
-        questionDiv.className = 'question';
-        questionDiv.innerHTML = `<p><strong>${idx + 1}. ${q.text}</strong></p>`;
-        
-        q.options.forEach((opt, optIdx) => {
-            const label = document.createElement('label');
-            const radio = document.createElement('input');
-            radio.type = 'radio';
-            radio.name = `q${idx}`;
-            radio.value = optIdx;
-            label.appendChild(radio);
-            label.appendChild(document.createTextNode(` ${opt}`));
-            questionDiv.appendChild(label);
-            questionDiv.appendChild(document.createElement('br'));
-        });
-        
-        container.appendChild(questionDiv);
-    });
-}
-
-function checkAnswers() {
-    let correctCount = 0;
-    
-    questions.forEach((q, idx) => {
-        const radios = document.getElementsByName(`q${idx}`);
-        let selectedValue = null;
-        for (let i = 0; i < radios.length; i++) {
-            if (radios[i].checked) {
-                selectedValue = parseInt(radios[i].value);
-                break;
-            }
-        }
-        if (selectedValue === q.correct) {
-            correctCount++;
-        }
-    });
-    
-    const total = questions.length;
-    const percent = Math.round((correctCount / total) * 100);
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const pageInfoSpan = document.getElementById('page-info');
+    const submitBtn = document.getElementById('submit-btn');
     const resultDiv = document.getElementById('result');
-    resultDiv.innerHTML = `<h3>Результат: ${correctCount} из ${total} (${percent}%)</h3>`;
-    
-    // на сколько процентиков прошел, а?
-    if (percent === 100) {
-        resultDiv.innerHTML += "<p>Вообще, малышка! Просто бомба.</p>";
-    } else if (percent >= 70) {
-        resultDiv.innerHTML += "<p>Неплохо, сдашь.</p>";
-    } else {
-        resultDiv.innerHTML += "<p>Не-е, чувак. Так не пойдет. Давай еще разок.</p>";
-    }
-}
 
-// Запуск отрисовки при загрузке страницы
-window.onload = () => {
-    renderTest();
-    document.getElementById('submit-btn').addEventListener('click', checkAnswers);
-};
+    function renderCurrentPage() {
+        container.innerHTML = '';
+        const start = currentPage * QUESTIONS_PER_PAGE;
+        const end = Math.min(start + QUESTIONS_PER_PAGE, questions.length);
+        
+        for (let i = start; i < end; i++) {
+            const q = questions[i];
+            const globalIdx = i; 
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.innerHTML = `<p><strong>${globalIdx + 1}. ${q.text}</strong></p>`;
+            
+            q.options.forEach((opt, optIdx) => {
+                const label = document.createElement('label');
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `q${globalIdx}`;   
+                radio.value = optIdx;
+                if (userAnswers[globalIdx] === optIdx) radio.checked = true;
+                
+                radio.addEventListener('change', function() {
+                    if (this.checked) {
+                        userAnswers[globalIdx] = parseInt(this.value);
+                    }
+                });
+                
+                label.appendChild(radio);
+                label.appendChild(document.createTextNode(` ${opt}`));
+                questionDiv.appendChild(label);
+                questionDiv.appendChild(document.createElement('br'));
+            });
+            container.appendChild(questionDiv);
+        }
+        
+        prevBtn.disabled = (currentPage === 0);
+        nextBtn.disabled = (currentPage === totalPages - 1);
+        pageInfoSpan.textContent = `Страница ${currentPage + 1} из ${totalPages}`;
+    }
+
+    prevBtn.addEventListener('click', () => {
+        if (currentPage > 0) {
+            currentPage--;
+            renderCurrentPage();
+            resultDiv.innerHTML = '';
+        }
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        if (currentPage < totalPages - 1) {
+            currentPage++;
+            renderCurrentPage();
+            resultDiv.innerHTML = '';
+        }
+    });
+    
+    function checkAnswers() {
+        let correctCount = 0;
+        for (let i = 0; i < questions.length; i++) {
+            if (userAnswers[i] === questions[i].correct) correctCount++;
+        }
+        const total = questions.length;
+        const percent = Math.round((correctCount / total) * 100);
+        resultDiv.innerHTML = `<h3>Результат: ${correctCount} из ${total} (${percent}%)</h3>`;
+        
+        if (percent === 100) {
+            resultDiv.innerHTML += "<p>Вообще, малышка! Просто бомба.</p>";
+        } else if (percent >= 70) {
+            resultDiv.innerHTML += "<p>Неплохо, сдашь.</p>";
+        } else {
+            resultDiv.innerHTML += "<p>Не-е, чувак. Так не пойдет. Давай еще разок.</p>";
+        }
+    }
+    
+    submitBtn.addEventListener('click', checkAnswers);
+    
+    renderCurrentPage();
