@@ -5580,92 +5580,132 @@ const questions = [
         correct: 2
     }
 ];
-    const QUESTIONS_PER_PAGE = 10;
-    let currentPage = 0;         
-    let totalPages = Math.ceil(questions.length / QUESTIONS_PER_PAGE);
-    
-    let userAnswers = new Array(questions.length).fill(null); 
+    const PER_PAGE = 10;
+    let currentPage = 0;
+    const totalPages = Math.ceil(questions.length / PER_PAGE);
+    let userAnswers = new Array(questions.length).fill(null);
 
     const container = document.getElementById('test-container');
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
     const pageInfoSpan = document.getElementById('page-info');
-    const submitBtn = document.getElementById('submit-btn');
+    const checkPageBtn = document.getElementById('check-page-btn');
+    const checkAllBtn = document.getElementById('check-all-btn');
     const resultDiv = document.getElementById('result');
 
-    function renderCurrentPage() {
+    function renderPage() {
+        const start = currentPage * PER_PAGE;
+        const end = Math.min(start + PER_PAGE, questions.length);
         container.innerHTML = '';
-        const start = currentPage * QUESTIONS_PER_PAGE;
-        const end = Math.min(start + QUESTIONS_PER_PAGE, questions.length);
-        
         for (let i = start; i < end; i++) {
             const q = questions[i];
-            const globalIdx = i; 
-            const questionDiv = document.createElement('div');
-            questionDiv.className = 'question';
-            questionDiv.innerHTML = `<p><strong>${globalIdx + 1}. ${q.text}</strong></p>`;
-            
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question';
+            qDiv.id = `q-${i}`;
+            qDiv.innerHTML = `<p><strong>${i+1}. ${q.text}</strong></p>`;
             q.options.forEach((opt, optIdx) => {
                 const label = document.createElement('label');
                 const radio = document.createElement('input');
                 radio.type = 'radio';
-                radio.name = `q${globalIdx}`;   
+                radio.name = `q${i}`;
                 radio.value = optIdx;
-                if (userAnswers[globalIdx] === optIdx) radio.checked = true;
-                
-                radio.addEventListener('change', function() {
-                    if (this.checked) {
-                        userAnswers[globalIdx] = parseInt(this.value);
-                    }
+                if (userAnswers[i] === optIdx) radio.checked = true;
+                radio.addEventListener('change', () => {
+                    if (radio.checked) userAnswers[i] = optIdx;
+                    clearQuestionFeedback(i);
                 });
-                
                 label.appendChild(radio);
                 label.appendChild(document.createTextNode(` ${opt}`));
-                questionDiv.appendChild(label);
-                questionDiv.appendChild(document.createElement('br'));
+                qDiv.appendChild(label);
+                qDiv.appendChild(document.createElement('br'));
             });
-            container.appendChild(questionDiv);
+            container.appendChild(qDiv);
         }
-        
-        prevBtn.disabled = (currentPage === 0);
-        nextBtn.disabled = (currentPage === totalPages - 1);
-        pageInfoSpan.textContent = `Страница ${currentPage + 1} из ${totalPages}`;
+        pageInfoSpan.textContent = `Страница ${currentPage+1} из ${totalPages}`;
+        prevBtn.disabled = currentPage === 0;
+        nextBtn.disabled = currentPage === totalPages - 1;
+    }
+
+    function clearQuestionFeedback(idx) {
+        const qDiv = document.getElementById(`q-${idx}`);
+        if (!qDiv) return;
+        qDiv.classList.remove('correct-answer', 'wrong-answer');
+        const existingFeedback = qDiv.querySelector('.feedback');
+        if (existingFeedback) existingFeedback.remove();
+    }
+
+    function checkCurrentPage() {
+        const start = currentPage * PER_PAGE;
+        const end = Math.min(start + PER_PAGE, questions.length);
+        let correct = 0;
+        for (let i = start; i < end; i++) {
+            clearQuestionFeedback(i);
+            const q = questions[i];
+            const selected = userAnswers[i];
+            const qDiv = document.getElementById(`q-${i}`);
+            if (!qDiv) continue;
+            
+            if (selected === q.correct) {
+                correct++;
+                qDiv.classList.add('correct-answer');
+                const feedbackSpan = document.createElement('div');
+                feedbackSpan.className = 'feedback correct-feedback';
+                feedbackSpan.innerHTML = 'Агась. Правильна.';
+                qDiv.appendChild(feedbackSpan);
+            } else {
+                qDiv.classList.add('wrong-answer');
+                const correctAnswerText = q.options[q.correct];
+                let userAnswerText = "не выбран";
+                if (selected !== null && selected !== undefined) {
+                    userAnswerText = q.options[selected];
+                }
+                const feedbackSpan = document.createElement('div');
+                feedbackSpan.className = 'feedback wrong-feedback';
+                feedbackSpan.innerHTML = `Твой ответик: ${userAnswerText}<br>А надо было: ${correctAnswerText}`;
+                qDiv.appendChild(feedbackSpan);
+            }
+        }
+        const totalOnPage = end - start;
+        const percent = Math.round((correct / totalOnPage) * 100);
+        resultDiv.innerHTML = `<h3>Результат по этой СтРаНиЧкЕ: ${correct} из ${totalOnPage} (${percent}%)</h3>`;
+        if (percent === 100) resultDiv.innerHTML += "<p>Чики бамбони! ТЫ ПРОСТО ПУШКА.</p>";
+        else if (percent >= 70) resultDiv.innerHTML += "<p>Хорошо, но можно быть как соня е.</p>";
+        else resultDiv.innerHTML += "<p> Чел, ту мач ошибочек. А ну-ка, по новой.</p>";
+    }
+
+    function checkAllQuestions() {
+        let correct = 0;
+        const wrongIndices = [];
+        for (let i = 0; i < questions.length; i++) {
+            if (userAnswers[i] === questions[i].correct) {
+                correct++;
+            } else {
+                wrongIndices.push(i+1); 
+            }
+        }
+        const percent = Math.round((correct / questions.length) * 100);
+        let errorHtml = '';
+        if (wrongIndices.length > 0) {
+            errorHtml = `<div class="error-list"><strong>Ошибончики в вопросиках №:</strong> ${wrongIndices.join(', ')}</div>`;
+        } else {
+            errorHtml = '<div class="error-list" style="background:#c8e6c9;"> Ты такая красопета (не в зависимости от пола)! Все ответы верные!</div>';
+        }
+        resultDiv.innerHTML = `
+            <h3>ИТОГ ПО ВСЕМ ВОПРОСУНДАМ: ${correct} из ${questions.length} (${percent}%)</h3>
+            ${errorHtml}
+        `;
+        if (percent === 100) resultDiv.innerHTML += "<p>Вообще, малышка! Просто бомба.</p>";
+        else if (percent >= 70) resultDiv.innerHTML += "<p>Неплохо, сдашь.</p>";
+        else resultDiv.innerHTML += "<p>Не-е, чувак. Так не пойдет. Давай еще разок.</p>";
     }
 
     prevBtn.addEventListener('click', () => {
-        if (currentPage > 0) {
-            currentPage--;
-            renderCurrentPage();
-            resultDiv.innerHTML = '';
-        }
+        if (currentPage > 0) { currentPage--; renderPage(); resultDiv.innerHTML = ''; }
     });
-    
     nextBtn.addEventListener('click', () => {
-        if (currentPage < totalPages - 1) {
-            currentPage++;
-            renderCurrentPage();
-            resultDiv.innerHTML = '';
-        }
+        if (currentPage < totalPages - 1) { currentPage++; renderPage(); resultDiv.innerHTML = ''; }
     });
-    
-    function checkAnswers() {
-        let correctCount = 0;
-        for (let i = 0; i < questions.length; i++) {
-            if (userAnswers[i] === questions[i].correct) correctCount++;
-        }
-        const total = questions.length;
-        const percent = Math.round((correctCount / total) * 100);
-        resultDiv.innerHTML = `<h3>Результат: ${correctCount} из ${total} (${percent}%)</h3>`;
-        
-        if (percent === 100) {
-            resultDiv.innerHTML += "<p>Вообще, малышка! Просто бомба.</p>";
-        } else if (percent >= 70) {
-            resultDiv.innerHTML += "<p>Неплохо, сдашь.</p>";
-        } else {
-            resultDiv.innerHTML += "<p>Не-е, чувак. Так не пойдет. Давай еще разок.</p>";
-        }
-    }
-    
-    submitBtn.addEventListener('click', checkAnswers);
-    
-    renderCurrentPage();
+    checkPageBtn.addEventListener('click', checkCurrentPage);
+    checkAllBtn.addEventListener('click', checkAllQuestions);
+
+    renderPage();
