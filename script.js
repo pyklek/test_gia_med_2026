@@ -5674,7 +5674,7 @@ const originalQuestions = [
 const urlParams = new URLSearchParams(window.location.search);
 const isExamMode = urlParams.get('mode') === 'exam';
 
-let currentQuestions; 
+let currentQuestions;
 
 if (isExamMode) {
     const EXAM_SIZE = 100;
@@ -5700,10 +5700,9 @@ function shuffleArray(arr) {
 const PER_PAGE = 10;
 let currentPage = 0;
 let userAnswers = new Array(currentQuestions.length).fill(null);
-let examTimer = null;         
-let examTimeLeft = 100 * 60;  
-let examActive = true;        
-
+let examTimer = null;
+let examTimeLeft = 100 * 60;
+let examActive = true;     
 const container = document.getElementById('test-container');
 const prevBtn = document.getElementById('prev-btn');
 const nextBtn = document.getElementById('next-btn');
@@ -5716,7 +5715,6 @@ const orderBtn = document.getElementById('order-btn');
 const titleEl = document.getElementById('page-title');
 
 let timerDisplay = null;
-let finishExamBtn = null;
 
 function clearQuestionFeedback(idx) {
     const qDiv = document.getElementById(`q-${idx}`);
@@ -5757,12 +5755,13 @@ function examTimeOut() {
     if (timerDisplay) timerDisplay.textContent = "Время вышло!";
     checkAllQuestions();
     disableAllRadios();
-    resultDiv.innerHTML += "<p style='color:red; font-weight:bold;'>Время экзамена истекло. Ответы автоматически сохранены.</p>";
+    resultDiv.innerHTML += "<p style='color:red; font-weight:bold;'>Время экзамена истекло. Ответы сохранены.</p>";
+    renderPage(); 
 }
 
 function startExamTimer() {
     if (!isExamMode) return;
-    examTimeLeft = 100 * 60; 
+    examTimeLeft = 100 * 60;
     if (!timerDisplay) {
         const timerDiv = document.createElement('div');
         timerDiv.id = 'exam-timer';
@@ -5783,6 +5782,29 @@ function startExamTimer() {
     updateTimer();
     examTimer = setInterval(updateTimer, 1000);
 }
+
+function applyExamFeedback(q, qDiv, selected, isFinal = false) {
+    const isCorrect = (selected !== null && selected === q.correct);
+    if (isCorrect) {
+        qDiv.classList.add('correct-answer');
+        const feedbackSpan = document.createElement('div');
+        feedbackSpan.className = 'feedback correct-feedback';
+        feedbackSpan.innerHTML = 'Правильно!';
+        qDiv.appendChild(feedbackSpan);
+    } else {
+        qDiv.classList.add('wrong-answer');
+        const correctAnswerText = q.options[q.correct];
+        let userAnswerText = "не выбран";
+        if (selected !== null && selected !== undefined) {
+            userAnswerText = q.options[selected];
+        }
+        const feedbackSpan = document.createElement('div');
+        feedbackSpan.className = 'feedback wrong-feedback';
+        feedbackSpan.innerHTML = `Неправильно.<br>Правильный ответ: ${correctAnswerText}`;
+        qDiv.appendChild(feedbackSpan);
+    }
+}
+
 function renderPage() {
     const totalPages = Math.ceil(currentQuestions.length / PER_PAGE);
     const start = currentPage * PER_PAGE;
@@ -5801,11 +5823,20 @@ function renderPage() {
             radio.name = `q${i}`;
             radio.value = optIdx;
             if (userAnswers[i] === optIdx) radio.checked = true;
-            if (!examActive) radio.disabled = true;
+            if (isExamMode && !examActive) radio.disabled = true;
             radio.addEventListener('change', () => {
-                if (!examActive) return;
+                if (isExamMode && !examActive) return;
                 if (radio.checked) userAnswers[i] = optIdx;
-                clearQuestionFeedback(i);
+                if (isExamMode) {
+                    clearQuestionFeedback(i);
+                    const selected = userAnswers[i];
+                    const qDivLocal = document.getElementById(`q-${i}`);
+                    if (selected !== null && selected !== undefined) {
+                        applyExamFeedback(q, qDivLocal, selected, false);
+                    }
+                } else {
+                    clearQuestionFeedback(i);
+                }
             });
             label.appendChild(radio);
             label.appendChild(document.createTextNode(` ${opt}`));
@@ -5813,6 +5844,20 @@ function renderPage() {
             qDiv.appendChild(document.createElement('br'));
         });
         container.appendChild(qDiv);
+
+        // Показываем подсветку для экзамена:
+        if (isExamMode) {
+            const selected = userAnswers[i];
+            if (examActive === false) {
+                clearQuestionFeedback(i);
+                applyExamFeedback(q, qDiv, selected !== undefined ? selected : null, true);
+            } else {
+                if (selected !== null && selected !== undefined) {
+                    clearQuestionFeedback(i);
+                    applyExamFeedback(q, qDiv, selected, false);
+                }
+            }
+        }
     }
     pageInfoSpan.textContent = `Страница ${currentPage+1} из ${totalPages}`;
     prevBtn.disabled = currentPage === 0;
@@ -5826,19 +5871,25 @@ function resetAndRender() {
     resultDiv.innerHTML = '';
 }
 
-shuffleBtn.addEventListener('click', () => {
-    currentQuestions = [...originalQuestions];
-    shuffleArray(currentQuestions);
-    resetAndRender();
-});
-
-orderBtn.addEventListener('click', () => {
-    currentQuestions = [...originalQuestions];
-    resetAndRender();
-});
+// Обычный режим: кнопки порядка
+if (!isExamMode) {
+    if (shuffleBtn) {
+        shuffleBtn.addEventListener('click', () => {
+            currentQuestions = [...originalQuestions];
+            shuffleArray(currentQuestions);
+            resetAndRender();
+        });
+    }
+    if (orderBtn) {
+        orderBtn.addEventListener('click', () => {
+            currentQuestions = [...originalQuestions];
+            resetAndRender();
+        });
+    }
+}
 
 function checkCurrentPage() {
-    const totalPages = Math.ceil(currentQuestions.length / PER_PAGE);
+    if (isExamMode) return; 
     const start = currentPage * PER_PAGE;
     const end = Math.min(start + PER_PAGE, currentQuestions.length);
     let correct = 0;
@@ -5848,7 +5899,6 @@ function checkCurrentPage() {
         const selected = userAnswers[i];
         const qDiv = document.getElementById(`q-${i}`);
         if (!qDiv) continue;
-        
         if (selected === q.correct) {
             correct++;
             qDiv.classList.add('correct-answer');
@@ -5871,15 +5921,10 @@ function checkCurrentPage() {
     }
     const totalOnPage = end - start;
     const percent = Math.round((correct / totalOnPage) * 100);
-    resultDiv.innerHTML = `<h3>Результат по этой СтРаНиЧкЕ: ${correct} из ${totalOnPage} (${percent}%)</h3>`;
-    if (percent === 100) resultDiv.innerHTML += "<p>Чики бамбони! ТЫ ПРОСТО ПУШКА.</p>";
-    else if (percent >= 70) resultDiv.innerHTML += "<p>Хорошо, но можно быть как соня е.</p>";
-    else resultDiv.innerHTML += "<p> Чел, ту мач ошибочек. А ну-ка, по новой.</p>";
+    resultDiv.innerHTML = `<h3>Результат по этой странице: ${correct} из ${totalOnPage} (${percent}%)</h3>`;
 }
 
 function checkAllQuestions() {
-    if (isExamMode && !examActive) {
-    }
     let correct = 0;
     const wrongIndices = [];
     for (let i = 0; i < currentQuestions.length; i++) {
@@ -5894,54 +5939,54 @@ function checkAllQuestions() {
     if (wrongIndices.length > 0) {
         errorHtml = `<div class="error-list"><strong>Ошибки в вопросах №:</strong> ${wrongIndices.join(', ')}</div>`;
     } else {
-        errorHtml = '<div class="error-list" style="background:#c8e6c9;">Все ответы верны! цЬОМАЮ</div>';
+        errorHtml = '<div class="error-list" style="background:#c8e6c9;">Все ответы верны!</div>';
     }
     resultDiv.innerHTML = `
         <h3>ИТОГ: ${correct} из ${currentQuestions.length} (${percent}%)</h3>
         ${errorHtml}
     `;
-    
     if (isExamMode && examActive) {
         examActive = false;
         stopExamTimer();
         disableAllRadios();
         if (timerDisplay) timerDisplay.style.opacity = '0.5';
-        resultDiv.innerHTML += "<p>Экзамен В С Ё. Изменять ответы больше нельзя.</p>";
+        resultDiv.innerHTML += "<p>Экзамен завершён. Изменять ответы больше нельзя.</p>";
+        renderPage();
     }
 }
 
-if (!isExamMode) {
-    if (shuffleBtn) {
-        shuffleBtn.addEventListener('click', () => {
-            currentQuestions = [...originalQuestions];
-            for (let i = currentQuestions.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [currentQuestions[i], currentQuestions[j]] = [currentQuestions[j], currentQuestions[i]];
-            }
-            resetAndRender();
-        });
-    }
-    if (orderBtn) {
-        orderBtn.addEventListener('click', () => {
-            currentQuestions = [...originalQuestions];
-            resetAndRender();
-        });
-    }
-} else {
+if (isExamMode) {
+    if (titleEl) titleEl.innerHTML = 'ЭКЗАМЕН: 100 случайных вопросов / 100 минут';
     if (shuffleBtn) shuffleBtn.style.display = 'none';
     if (orderBtn) orderBtn.style.display = 'none';
+    if (checkPageBtn) checkPageBtn.style.display = 'none';
+    if (checkAllBtn) checkAllBtn.style.display = 'none';
+
     const extraDiv = document.querySelector('.button-group');
     if (extraDiv && !document.getElementById('finish-exam-btn')) {
         const finishBtn = document.createElement('button');
         finishBtn.id = 'finish-exam-btn';
         finishBtn.textContent = 'Завершить экзамен досрочно';
-        finishBtn.style.background = '#7066ff62';
+        finishBtn.style.background = '#8766ff25';
         finishBtn.addEventListener('click', () => {
-            if (examActive && confirm('Завершить экзамен и показать результаты? Ты смотри, чувак, ответы больше не поменять.')) {
+            if (examActive && confirm('Завершить экзамен и показать результаты? Изменять ответы будет нельзя.')) {
                 checkAllQuestions();
             }
         });
         extraDiv.appendChild(finishBtn);
+    }
+    startExamTimer();
+} else {
+    if (titleEl) titleEl.innerHTML = 'По 10 квесчунов. Прям как мои анчоусы попросили.';
+    if (shuffleBtn) shuffleBtn.style.display = 'inline-block';
+    if (orderBtn) orderBtn.style.display = 'inline-block';
+    if (checkPageBtn) {
+        checkPageBtn.style.display = 'inline-block';
+        checkPageBtn.addEventListener('click', checkCurrentPage);
+    }
+    if (checkAllBtn) {
+        checkAllBtn.style.display = 'inline-block';
+        checkAllBtn.addEventListener('click', checkAllQuestions);
     }
 }
 
@@ -5953,17 +5998,4 @@ nextBtn.addEventListener('click', () => {
     if (currentPage < totalPages - 1) { currentPage++; renderPage(); resultDiv.innerHTML = ''; }
 });
 
-checkPageBtn.addEventListener('click', checkCurrentPage);
-checkAllBtn.addEventListener('click', checkAllQuestions);
-
-if (titleEl) {
-    if (isExamMode) {
-        titleEl.innerHTML = 'ЭКЗАМЕН: 100 случайных куэсчунов / 100 минут';
-    } else {
-        titleEl.innerHTML = 'По 10 квесчунов. Прям как мои анчоусы попросили.';
-    }
-}
 renderPage();
-if (isExamMode) {
-    startExamTimer();
-}
