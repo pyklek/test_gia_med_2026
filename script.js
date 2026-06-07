@@ -5967,7 +5967,7 @@ if (isExamMode) {
         const finishBtn = document.createElement('button');
         finishBtn.id = 'finish-exam-btn';
         finishBtn.textContent = 'Завершить экзамен досрочно';
-        finishBtn.style.background = '#8766ff25';
+        finishBtn.style.background = '#381c9e98';
         finishBtn.addEventListener('click', () => {
             if (examActive && confirm('Завершить экзамен и показать результаты? Изменять ответы будет нельзя.')) {
                 checkAllQuestions();
@@ -5991,11 +5991,22 @@ if (isExamMode) {
 }
 
 prevBtn.addEventListener('click', () => {
-    if (currentPage > 0) { currentPage--; renderPage(); resultDiv.innerHTML = ''; }
+    if (currentPage > 0) { 
+        currentPage--; 
+        renderPage(); 
+        resultDiv.innerHTML = '';
+        window.scrollTo({ top: 0, behavior: 'smooth' }); 
+    }
 });
+
 nextBtn.addEventListener('click', () => {
     const totalPages = Math.ceil(currentQuestions.length / PER_PAGE);
-    if (currentPage < totalPages - 1) { currentPage++; renderPage(); resultDiv.innerHTML = ''; }
+    if (currentPage < totalPages - 1) { 
+        currentPage++; 
+        renderPage(); 
+        resultDiv.innerHTML = '';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 });
 
 renderPage();
