@@ -1,5 +1,5 @@
 // Данные теста
-const questions = [
+const originalQuestions = [
     {
         text: "В АНТИЧНОЙ ТРАДИЦИИ «ОТЦОМ ИСТОРИИ» СЧИТАЛСЯ",
         options: [
@@ -200,7 +200,7 @@ const questions = [
             ],
             correct: 0
         },
-        {             text: "Закрытой термодинамической системой называется такая система, которая",
+        {   text: "Закрытой термодинамической системой называется такая система, которая",
             options: [
                 "А. Может обмениваться с окружающей средой только энергией",
                 "Б. Может обмениваться с окружающей средой только массой",
@@ -987,7 +987,7 @@ const questions = [
             "В. Блуждающий нерв",
             "Г. Зрительный нерв"
         ],
-        correct: 1
+        correct: 0
     },
     {
         text: "Отсутствие дыхания, сознания, сердечной деятельности в стационаре является показанием к проведению:",
@@ -1057,7 +1057,7 @@ const questions = [
             "В. Травмах, операциях",
             "Г. Жалобы больного"
         ],
-        correct: 3
+        correct: 0
     },
     {
         text: "С целью временной остановки кровотечения применяют:",
@@ -1077,7 +1077,7 @@ const questions = [
             "В. Столбнячным анатоксином",
             "Г. Антибиотиками"
         ],
-        correct: 2
+        correct: 0
     },
     {
         text: "При резком повышении температуры у детей рекомендовано в первую очередь применить",
@@ -1947,7 +1947,7 @@ const questions = [
             "В. Гетеронимная гемианопсия",
             "Г. Кольцевидная скотома"
         ],
-        correct: 2
+        correct: 0
     },
     { // 16
         text: "Нарушением восприятия красного цвета является",
@@ -1967,7 +1967,7 @@ const questions = [
             "В. Цианопсия",
             "Г. Хлоропсия"
         ],
-        correct: 2
+        correct: 0
     },
     { // 18
         text: "Методом исследования слезоотводящих путей для выявления уровня облитерации является",
@@ -2260,7 +2260,7 @@ const questions = [
         correct: 2
     },
     { // 4
-        text: "У взрослой пациентки нитрофураны назначают ______ день/дней 3 раза в сутки внутрь",
+        text: "ДЛЯ ЭМПИРИЧЕСКОЙ ТЕРАПИИ ОСТРОГО НЕОСЛОЖНЕННОГО ЦИСТИТА У взрослой пациентки нитрофураны назначают ______ день/дней 3 раза в сутки внутрь",
         options: [
             "А. 100 мг на 14",
             "Б. 100 мг на 5",
@@ -3577,7 +3577,7 @@ const questions = [
             "В. Асцит",
             "Г. Все вышеперечисленное"
         ],
-        correct: 3
+        correct: 0
     },
     { // 12
         text: "У пациента с болями в животе и изменениями в стуле можно заподозрить",
@@ -3597,9 +3597,9 @@ const questions = [
             "В. Анализ на опухолевые маркеры",
             "Г. Все вышеперечисленные"
         ],
-        correct: 3
+        correct: 0
     },
-    { // 14
+    {
         text: "Критериями объективной оценки качества иммунопрофилактики являются",
         options: [
             "А. Результаты серологического мониторинга",
@@ -3609,7 +3609,7 @@ const questions = [
         ],
         correct: 0
     },
-    { // 15
+    { 
         text: "Особенности устройства бокса Мельцера",
         options: [
             "А. 2 входа (1 из них с улицы)",
@@ -3619,7 +3619,7 @@ const questions = [
         ],
         correct: 0
     },
-    { // 16
+    { 
         text: "Верифицировать диагноз «холера» после смерти больного позволит",
         options: [
             "А. Бакпосев секционного материала (содержимого тонкой кишки)",
@@ -3629,7 +3629,7 @@ const questions = [
         ],
         correct: 0
     },
-    { // 17
+    { 
         text: "Санитарно-эпидемиологическая оценка района с групповой заболеваемостью особо опасными инфекциями",
         options: [
             "А. Чрезвычайная",
@@ -3639,7 +3639,7 @@ const questions = [
         ],
         correct: 0
     },
-    { // 18
+    { 
         text: "Искусственный эпидемический процесс, возникающий при применении биологического оружия, характеризуется",
         options: [
             "А. Отсутствием источника инфекции",
@@ -3649,7 +3649,7 @@ const questions = [
         ],
         correct: 0
     },
-    { // 19
+    { 
         text: "Для защиты войск от бактериальных средств на этапе ликвидации последствий применения биологического оружия необходима",
         options: [
             "А. Полная санитарная обработка личного состава войск",
@@ -3659,7 +3659,7 @@ const questions = [
         ],
         correct: 0
     },
-    { // 20
+    { 
         text: "Соотношение грудных компрессий и искусственного дыхания при проведении СЛР у взрослых составляет",
         options: [
             "А. 15:3",
@@ -3669,7 +3669,7 @@ const questions = [
         ],
         correct: 3
     },
-    { // 21
+    { 
         text: "Оптимальная глубина грудных компрессий у взрослого пациента составляет ____ см",
         options: [
             "А. 1-2",
@@ -3679,7 +3679,7 @@ const questions = [
         ],
         correct: 2
     },
-    { // 22
+    { 
         text: "Для купирования анафилактического шока, развившегося после укуса пчелы, в первую очередь необходимо ввести",
         options: [
             "А. Адреналина гидрохлорид",
@@ -3757,7 +3757,7 @@ const questions = [
             "В. Оглушения",
             "Г. Комы"
         ],
-        correct: 0
+        correct: 3
     },
     { // 2
         text: "Вынужденное положение сидя с упором на руки в течение нескольких часов, экспираторная одышка до 36 в мин, сухой кашель, цианоз, аускультативно - «мозаичное дыхание» у пациентки с бронхиальной астмой, вероятнее всего обусловлено развитием",
@@ -4880,6 +4880,126 @@ const questions = [
         correct: 0
     },
     {
+        text: "ПАЦИЕНТОВ С ПОДОЗРЕНИЕМ НА ВОЗНИКНОВЕНИЕ ТРАВМАТИЧЕСКОЙ ВНУТРИЧЕРЕПНОЙ ГЕМАТОМЫ СЛЕДУЕТ ГОСПИТОЛИЗИРОВАТЬ В ОТДЕЛЕНИЕ",
+        options: [
+            "А. Неврологии",
+            "Б. Хирургии",
+            "В. Нейрохирургии",
+            "Г. Травматологии"
+        ],
+        correct: 2
+    },
+    {
+        text: "ПАЦИЕНТОВ С ПОДОЗРЕНИЕМ НА ВОЗНИКНОВЕНИЕ ТРАНЗИТОРНОЙ ИШЕМИЧЕСКОЙ АТАКИ СЛЕДУЕТ ГОСПИТОЛИЗИРОВАТЬ В ОТДЕЛЕНИЕ",
+        options: [
+            "А. Неврологии",
+            "Б. Хирургии",
+            "В. Нейрохирургии",
+            "Г. Травматологии"
+        ],
+        correct: 0
+    },
+    {
+        text: "ЗОЛОТЫМ СТАНДАРТОМ ДИАГНОСТИКИ ВНУТРИЧЕРЕПНЫХ ГЕМАТОМ ЯВЛЯЕТСЯ",
+        options: [
+            "А. Компьютерная-томография",
+            "Б. Краниография",
+            "В. Магнитно-резонансная томография",
+            "Г. Ангиография"
+        ],
+        correct: 0
+    },
+    {
+        text: "ЗОЛОТЫМ СТАНДАРТОМ ДИАГНОСТИКИ АРИЕРИАЛЬНЫХ АНЕВРИЗМ ЯВЛЯЕТСЯ",
+        options: [
+            "А. Компьютерная-томография",
+            "Б. Краниография",
+            "В. Магнитно-резонансная томография",
+            "Г. Ангиография"
+        ],
+        correct: 3
+    },
+        {
+        text: "ДИСФОНИЯ, ДИЗАРТРИЯ, НАСИЛЬСТВЕННЫЕ ПЛАЧ И СМЕХ; РЕФЛЕКСЫ ОРАЛЬНОГО АВТОМАТИЗМА, ГЛОТОЧНЫЕ И НЕБНЫЕ РЕФЛЕКСЫ ПОВЫШЕНЫ, КОТОРЫЕ ХАРАКТЕРИЗУЮТ __________ СИНДРОМ",
+        options: [
+            "А. Псевдобульбарный",
+            "Б. Джексоновский",
+            "В. Бульбарный",
+            "Г. Невротический"
+        ],
+        correct: 0
+    },
+    {
+        text: "МОЗЖЕЧКОВАЯ АТАКСИЯ, ЦЕНТРАЛЬНЫЙ ТЕТРАПАРЕЗ, 2 ГОДА НАЗАД ПЕРЕНЕСЛА ПРАВОСТОРОННИЙ РЕТРОБУЛЬБАРНЫЙ НЕВРИТ, МНОЖЕСТВЕННЫЕ ДЕМИЕЛИНИЗИРУЮЩИЕ ОЧАГИ ПРИ НЕЙРОВИЗУАЛИЗАЦИИ ХАРАКТЕРНЫ ДЛЯ ",
+        options: [
+            "А. Рассеянного склероза",
+            "Б. Нейроспида",
+            "В. Острого миелита",
+            "Г. Вялотекущего энцефаломиелита"
+        ],
+        correct: 0
+    },
+    {
+        text: "У ПАЦИЕНТОВ С ИШЕМИЧЕСКИМ ИНСУЛЬТОМ НАИБОЛЕЕ ВЕРОЯТНО СЛЕДУЮЩЕЕ ОСЛОЖНЕНИЕ",
+        options: [
+            "А. Отек мозга",
+            "Б. Сепсис",
+            "В. ТЭЛА",
+            "Г. Разрыв аневризмы"
+        ],
+        correct: 0
+    },
+    {
+        text: "У ПАЦИЕНТОВ С АРТЕРИАЛЬНОЙ АНЕВРИЗМОЙ НАИБОЛЕЕ ВЕРОЯТНО СЛЕДУЮЩЕЕ ОСЛОЖНЕНИЕ",
+        options: [
+            "А. Отек мозга",
+            "Б. Сепсис",
+            "В. ТЭЛА",
+            "Г. Разрыв аневризмы"
+        ],
+        correct: 0
+    },
+    {
+        text: "У ПАЦИЕНТА ПРИ ВЫПОЛНЕНИИ КТ ГОЛОВНОГО МОЗГА БЫЛО ВЫЯВЛЕНО ГИПЕРДЕНСИВНОЕ ОБРАЗОВАНИЕ ЛЕВОГО ПОЛУШАРИЯ В ВИДЕ ДВОЯКОВЫПУКЛОЙ ЛИНЗЫ, ЧТО СВИДЕТЕЛЬСТВУЕТ О",
+        options: [
+            "А. Эпидуральной гематоме",
+            "Б. Субдуральной гематоме",
+            "В. Внутримозговой гематоме",
+            "Г. Отек мозга"
+        ],
+        correct: 0
+    },
+    {
+        text: "У ПАЦИЕНТА ПРИ ВЫПОЛНЕНИИ КТ ГОЛОВНОГО МОЗГА БЫЛО ВЫЯВЛЕНО ГИПЕРДЕНСИВНОЕ ОБРАЗОВАНИЕ ЛЕВОГО ПОЛУШАРИЯ В ВИДЕ ПОЛУМЕСЯЦА, ЧТО СВИДЕТЕЛЬСТВУЕТ О",
+        options: [
+            "А. Эпидуральной гематоме",
+            "Б. Субдуральной гематоме",
+            "В. Внутримозговой гематоме",
+            "Г. Отек мозга"
+        ],
+        correct: 1
+    },
+    {
+        text: "РЕБЕНКУ 4 ЛЕТ ПРИ ПОДОЗРЕНИИ НА СОТРЯСЕНИЕ ГОЛОВНОГО МОЗГА ПОКАЗАНА",
+        options: [
+            "А. Краниография в 2 проекциях",
+            "Б. Ангиография",
+            "В. Компьютерная-томография",
+            "Г. Люмбальная пункция"
+        ],
+        correct: 0
+    },
+    {
+        text: "РЕБЕНКУ 14 ЛЕТ ПРИ ПОДОЗРЕНИИ НА УШИБ ГОЛОВНОГО МОЗГА ПОКАЗАНА",
+        options: [
+            "А. Краниография в 2 проекциях",
+            "Б. Ангиография",
+            "В. Компьютерная-томография",
+            "Г. Люмбальная пункция"
+        ],
+        correct: 2
+    },
+    {
         text: "Выделение слизи в дыхательных путях обеспечивает",
         options: [
             "А. Однослойный призматический реснитчатый эпителий",
@@ -4977,7 +5097,7 @@ const questions = [
             "В. объект исследования",
             "Г. цель исследования"
         ],
-        correct: 3
+        correct: 0
     },
     {
         text: "Объект исследования –",
@@ -5359,26 +5479,6 @@ const questions = [
         ],
         correct: 2
     },
-    { // 25
-        text: "Врачебная тайна соответствует",
-        options: [
-            "А. Принципу справедливости",
-            "Б. Принципу конфиденциальности",
-            "В. Принципу доброты",
-            "Г. Принципу необходимости"
-        ],
-        correct: 1
-    },
-    { // 26
-        text: "Один из принципов медицинской деонтологии -",
-        options: [
-            "А. Направленность действий медицинского работника на благо пациента",
-            "Б. Получение опыта в процессе работы с пациентом",
-            "В. Оказание помощи пациенту с учетом окружающей обстановки",
-            "Г. Направленность действий медицинского работника на благо медицинского работника"
-        ],
-        correct: 0
-    },
     { // 27
         text: "Симптомами кризиса при быстром падении температуры тела с 40ºС до 36°С являются",
         options: [
@@ -5438,16 +5538,6 @@ const questions = [
             "Г. 30"
         ],
         correct: 3
-    },
-    { // 33
-        text: "Одним из четырех универсальных принципов этики и деонтологии медицинской сестры является автономия, которая подразумевает",
-        options: [
-            "А. Уважение личности пациента",
-            "Б. Высокий уровень профессионализма",
-            "В. Выполнение назначений врача профессионально, четко и своевременно",
-            "Г. Отсутствие различения пациентов по их профессии, социальному статусу"
-        ],
-        correct: 0
     },
     { // 34
         text: "К внешней культуре, как проявлению деонтологии медсестры, можно отнести следующий элемент деонтологии",
@@ -5580,132 +5670,300 @@ const questions = [
         correct: 2
     }
 ];
-    const PER_PAGE = 10;
-    let currentPage = 0;
-    const totalPages = Math.ceil(questions.length / PER_PAGE);
-    let userAnswers = new Array(questions.length).fill(null);
 
-    const container = document.getElementById('test-container');
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
-    const pageInfoSpan = document.getElementById('page-info');
-    const checkPageBtn = document.getElementById('check-page-btn');
-    const checkAllBtn = document.getElementById('check-all-btn');
-    const resultDiv = document.getElementById('result');
+const urlParams = new URLSearchParams(window.location.search);
+const isExamMode = urlParams.get('mode') === 'exam';
 
-    function renderPage() {
-        const start = currentPage * PER_PAGE;
-        const end = Math.min(start + PER_PAGE, questions.length);
-        container.innerHTML = '';
-        for (let i = start; i < end; i++) {
-            const q = questions[i];
-            const qDiv = document.createElement('div');
-            qDiv.className = 'question';
-            qDiv.id = `q-${i}`;
-            qDiv.innerHTML = `<p><strong>${i+1}. ${q.text}</strong></p>`;
-            q.options.forEach((opt, optIdx) => {
-                const label = document.createElement('label');
-                const radio = document.createElement('input');
-                radio.type = 'radio';
-                radio.name = `q${i}`;
-                radio.value = optIdx;
-                if (userAnswers[i] === optIdx) radio.checked = true;
-                radio.addEventListener('change', () => {
-                    if (radio.checked) userAnswers[i] = optIdx;
-                    clearQuestionFeedback(i);
-                });
-                label.appendChild(radio);
-                label.appendChild(document.createTextNode(` ${opt}`));
-                qDiv.appendChild(label);
-                qDiv.appendChild(document.createElement('br'));
-            });
-            container.appendChild(qDiv);
-        }
-        pageInfoSpan.textContent = `Страница ${currentPage+1} из ${totalPages}`;
-        prevBtn.disabled = currentPage === 0;
-        nextBtn.disabled = currentPage === totalPages - 1;
+let currentQuestions; 
+
+if (isExamMode) {
+    const EXAM_SIZE = 100;
+    const shuffled = [...originalQuestions];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
+    currentQuestions = shuffled.slice(0, EXAM_SIZE);
+    console.log(`Экзамен: выбрано ${currentQuestions.length} вопросов из ${originalQuestions.length}`);
+} else {
+    currentQuestions = [...originalQuestions];
+}
 
-    function clearQuestionFeedback(idx) {
-        const qDiv = document.getElementById(`q-${idx}`);
-        if (!qDiv) return;
-        qDiv.classList.remove('correct-answer', 'wrong-answer');
-        const existingFeedback = qDiv.querySelector('.feedback');
-        if (existingFeedback) existingFeedback.remove();
+function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
     }
+    return arr;
+}
 
-    function checkCurrentPage() {
-        const start = currentPage * PER_PAGE;
-        const end = Math.min(start + PER_PAGE, questions.length);
-        let correct = 0;
-        for (let i = start; i < end; i++) {
-            clearQuestionFeedback(i);
-            const q = questions[i];
-            const selected = userAnswers[i];
-            const qDiv = document.getElementById(`q-${i}`);
-            if (!qDiv) continue;
-            
-            if (selected === q.correct) {
-                correct++;
-                qDiv.classList.add('correct-answer');
-                const feedbackSpan = document.createElement('div');
-                feedbackSpan.className = 'feedback correct-feedback';
-                feedbackSpan.innerHTML = 'Агась. Правильна.';
-                qDiv.appendChild(feedbackSpan);
-            } else {
-                qDiv.classList.add('wrong-answer');
-                const correctAnswerText = q.options[q.correct];
-                let userAnswerText = "не выбран";
-                if (selected !== null && selected !== undefined) {
-                    userAnswerText = q.options[selected];
-                }
-                const feedbackSpan = document.createElement('div');
-                feedbackSpan.className = 'feedback wrong-feedback';
-                feedbackSpan.innerHTML = `Твой ответик: ${userAnswerText}<br>А надо было: ${correctAnswerText}`;
-                qDiv.appendChild(feedbackSpan);
-            }
-        }
-        const totalOnPage = end - start;
-        const percent = Math.round((correct / totalOnPage) * 100);
-        resultDiv.innerHTML = `<h3>Результат по этой СтРаНиЧкЕ: ${correct} из ${totalOnPage} (${percent}%)</h3>`;
-        if (percent === 100) resultDiv.innerHTML += "<p>Чики бамбони! ТЫ ПРОСТО ПУШКА.</p>";
-        else if (percent >= 70) resultDiv.innerHTML += "<p>Хорошо, но можно быть как соня е.</p>";
-        else resultDiv.innerHTML += "<p> Чел, ту мач ошибочек. А ну-ка, по новой.</p>";
+const PER_PAGE = 10;
+let currentPage = 0;
+let userAnswers = new Array(currentQuestions.length).fill(null);
+let examTimer = null;         
+let examTimeLeft = 100 * 60;  
+let examActive = true;        
+
+const container = document.getElementById('test-container');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+const pageInfoSpan = document.getElementById('page-info');
+const checkPageBtn = document.getElementById('check-page-btn');
+const checkAllBtn = document.getElementById('check-all-btn');
+const resultDiv = document.getElementById('result');
+const shuffleBtn = document.getElementById('shuffle-btn');
+const orderBtn = document.getElementById('order-btn');
+const titleEl = document.getElementById('page-title');
+
+let timerDisplay = null;
+let finishExamBtn = null;
+
+function clearQuestionFeedback(idx) {
+    const qDiv = document.getElementById(`q-${idx}`);
+    if (!qDiv) return;
+    qDiv.classList.remove('correct-answer', 'wrong-answer');
+    const existingFeedback = qDiv.querySelector('.feedback');
+    if (existingFeedback) existingFeedback.remove();
+}
+
+function disableAllRadios() {
+    for (let i = 0; i < currentQuestions.length; i++) {
+        const radios = document.querySelectorAll(`input[name="q${i}"]`);
+        radios.forEach(radio => radio.disabled = true);
     }
+}
 
-    function checkAllQuestions() {
-        let correct = 0;
-        const wrongIndices = [];
-        for (let i = 0; i < questions.length; i++) {
-            if (userAnswers[i] === questions[i].correct) {
-                correct++;
-            } else {
-                wrongIndices.push(i+1); 
-            }
-        }
-        const percent = Math.round((correct / questions.length) * 100);
-        let errorHtml = '';
-        if (wrongIndices.length > 0) {
-            errorHtml = `<div class="error-list"><strong>Ошибончики в вопросиках №:</strong> ${wrongIndices.join(', ')}</div>`;
+function formatTime(seconds) {
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    if (hrs > 0) {
+        return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+}
+
+function stopExamTimer() {
+    if (examTimer) {
+        clearInterval(examTimer);
+        examTimer = null;
+    }
+}
+
+function examTimeOut() {
+    if (!examActive) return;
+    examActive = false;
+    stopExamTimer();
+    if (timerDisplay) timerDisplay.textContent = "Время вышло!";
+    checkAllQuestions();
+    disableAllRadios();
+    resultDiv.innerHTML += "<p style='color:red; font-weight:bold;'>Время экзамена истекло. Ответы автоматически сохранены.</p>";
+}
+
+function startExamTimer() {
+    if (!isExamMode) return;
+    examTimeLeft = 100 * 60; 
+    if (!timerDisplay) {
+        const timerDiv = document.createElement('div');
+        timerDiv.id = 'exam-timer';
+        timerDiv.style.cssText = 'text-align:center; font-size:24px; font-weight:bold; background:#fafad2; padding:8px; margin-bottom:20px; border:1px solid #aaa;';
+        const title = document.querySelector('h1');
+        title.insertAdjacentElement('afterend', timerDiv);
+        timerDisplay = document.getElementById('exam-timer');
+    }
+    const updateTimer = () => {
+        if (!examActive) return;
+        timerDisplay.textContent = `Осталось времени (тик-так): ${formatTime(examTimeLeft)}`;
+        if (examTimeLeft <= 0) {
+            examTimeOut();
         } else {
-            errorHtml = '<div class="error-list" style="background:#c8e6c9;"> Ты такая красопета (не в зависимости от пола)! Все ответы верные!</div>';
+            examTimeLeft--;
         }
-        resultDiv.innerHTML = `
-            <h3>ИТОГ ПО ВСЕМ ВОПРОСУНДАМ: ${correct} из ${questions.length} (${percent}%)</h3>
-            ${errorHtml}
-        `;
-        if (percent === 100) resultDiv.innerHTML += "<p>Вообще, малышка! Просто бомба.</p>";
-        else if (percent >= 70) resultDiv.innerHTML += "<p>Неплохо, сдашь.</p>";
-        else resultDiv.innerHTML += "<p>Не-е, чувак. Так не пойдет. Давай еще разок.</p>";
+    };
+    updateTimer();
+    examTimer = setInterval(updateTimer, 1000);
+}
+function renderPage() {
+    const totalPages = Math.ceil(currentQuestions.length / PER_PAGE);
+    const start = currentPage * PER_PAGE;
+    const end = Math.min(start + PER_PAGE, currentQuestions.length);
+    container.innerHTML = '';
+    for (let i = start; i < end; i++) {
+        const q = currentQuestions[i];
+        const qDiv = document.createElement('div');
+        qDiv.className = 'question';
+        qDiv.id = `q-${i}`;
+        qDiv.innerHTML = `<p><strong>${i+1}. ${q.text}</strong></p>`;
+        q.options.forEach((opt, optIdx) => {
+            const label = document.createElement('label');
+            const radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.name = `q${i}`;
+            radio.value = optIdx;
+            if (userAnswers[i] === optIdx) radio.checked = true;
+            if (!examActive) radio.disabled = true;
+            radio.addEventListener('change', () => {
+                if (!examActive) return;
+                if (radio.checked) userAnswers[i] = optIdx;
+                clearQuestionFeedback(i);
+            });
+            label.appendChild(radio);
+            label.appendChild(document.createTextNode(` ${opt}`));
+            qDiv.appendChild(label);
+            qDiv.appendChild(document.createElement('br'));
+        });
+        container.appendChild(qDiv);
     }
+    pageInfoSpan.textContent = `Страница ${currentPage+1} из ${totalPages}`;
+    prevBtn.disabled = currentPage === 0;
+    nextBtn.disabled = currentPage === totalPages - 1;
+}
 
-    prevBtn.addEventListener('click', () => {
-        if (currentPage > 0) { currentPage--; renderPage(); resultDiv.innerHTML = ''; }
-    });
-    nextBtn.addEventListener('click', () => {
-        if (currentPage < totalPages - 1) { currentPage++; renderPage(); resultDiv.innerHTML = ''; }
-    });
-    checkPageBtn.addEventListener('click', checkCurrentPage);
-    checkAllBtn.addEventListener('click', checkAllQuestions);
-
+function resetAndRender() {
+    userAnswers = new Array(currentQuestions.length).fill(null);
+    currentPage = 0;
     renderPage();
+    resultDiv.innerHTML = '';
+}
+
+shuffleBtn.addEventListener('click', () => {
+    currentQuestions = [...originalQuestions];
+    shuffleArray(currentQuestions);
+    resetAndRender();
+});
+
+orderBtn.addEventListener('click', () => {
+    currentQuestions = [...originalQuestions];
+    resetAndRender();
+});
+
+function checkCurrentPage() {
+    const totalPages = Math.ceil(currentQuestions.length / PER_PAGE);
+    const start = currentPage * PER_PAGE;
+    const end = Math.min(start + PER_PAGE, currentQuestions.length);
+    let correct = 0;
+    for (let i = start; i < end; i++) {
+        clearQuestionFeedback(i);
+        const q = currentQuestions[i];
+        const selected = userAnswers[i];
+        const qDiv = document.getElementById(`q-${i}`);
+        if (!qDiv) continue;
+        
+        if (selected === q.correct) {
+            correct++;
+            qDiv.classList.add('correct-answer');
+            const feedbackSpan = document.createElement('div');
+            feedbackSpan.className = 'feedback correct-feedback';
+            feedbackSpan.innerHTML = 'Агась. Правильна.';
+            qDiv.appendChild(feedbackSpan);
+        } else {
+            qDiv.classList.add('wrong-answer');
+            const correctAnswerText = q.options[q.correct];
+            let userAnswerText = "не выбран";
+            if (selected !== null && selected !== undefined) {
+                userAnswerText = q.options[selected];
+            }
+            const feedbackSpan = document.createElement('div');
+            feedbackSpan.className = 'feedback wrong-feedback';
+            feedbackSpan.innerHTML = `Твой ответик: ${userAnswerText}<br>А надо было: ${correctAnswerText}`;
+            qDiv.appendChild(feedbackSpan);
+        }
+    }
+    const totalOnPage = end - start;
+    const percent = Math.round((correct / totalOnPage) * 100);
+    resultDiv.innerHTML = `<h3>Результат по этой СтРаНиЧкЕ: ${correct} из ${totalOnPage} (${percent}%)</h3>`;
+    if (percent === 100) resultDiv.innerHTML += "<p>Чики бамбони! ТЫ ПРОСТО ПУШКА.</p>";
+    else if (percent >= 70) resultDiv.innerHTML += "<p>Хорошо, но можно быть как соня е.</p>";
+    else resultDiv.innerHTML += "<p> Чел, ту мач ошибочек. А ну-ка, по новой.</p>";
+}
+
+function checkAllQuestions() {
+    if (isExamMode && !examActive) {
+    }
+    let correct = 0;
+    const wrongIndices = [];
+    for (let i = 0; i < currentQuestions.length; i++) {
+        if (userAnswers[i] === currentQuestions[i].correct) {
+            correct++;
+        } else {
+            wrongIndices.push(i+1);
+        }
+    }
+    const percent = Math.round((correct / currentQuestions.length) * 100);
+    let errorHtml = '';
+    if (wrongIndices.length > 0) {
+        errorHtml = `<div class="error-list"><strong>Ошибки в вопросах №:</strong> ${wrongIndices.join(', ')}</div>`;
+    } else {
+        errorHtml = '<div class="error-list" style="background:#c8e6c9;">Все ответы верны! цЬОМАЮ</div>';
+    }
+    resultDiv.innerHTML = `
+        <h3>ИТОГ: ${correct} из ${currentQuestions.length} (${percent}%)</h3>
+        ${errorHtml}
+    `;
+    
+    if (isExamMode && examActive) {
+        examActive = false;
+        stopExamTimer();
+        disableAllRadios();
+        if (timerDisplay) timerDisplay.style.opacity = '0.5';
+        resultDiv.innerHTML += "<p>Экзамен В С Ё. Изменять ответы больше нельзя.</p>";
+    }
+}
+
+if (!isExamMode) {
+    if (shuffleBtn) {
+        shuffleBtn.addEventListener('click', () => {
+            currentQuestions = [...originalQuestions];
+            for (let i = currentQuestions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [currentQuestions[i], currentQuestions[j]] = [currentQuestions[j], currentQuestions[i]];
+            }
+            resetAndRender();
+        });
+    }
+    if (orderBtn) {
+        orderBtn.addEventListener('click', () => {
+            currentQuestions = [...originalQuestions];
+            resetAndRender();
+        });
+    }
+} else {
+    if (shuffleBtn) shuffleBtn.style.display = 'none';
+    if (orderBtn) orderBtn.style.display = 'none';
+    const extraDiv = document.querySelector('.button-group');
+    if (extraDiv && !document.getElementById('finish-exam-btn')) {
+        const finishBtn = document.createElement('button');
+        finishBtn.id = 'finish-exam-btn';
+        finishBtn.textContent = 'Завершить экзамен досрочно';
+        finishBtn.style.background = '#7066ff62';
+        finishBtn.addEventListener('click', () => {
+            if (examActive && confirm('Завершить экзамен и показать результаты? Ты смотри, чувак, ответы больше не поменять.')) {
+                checkAllQuestions();
+            }
+        });
+        extraDiv.appendChild(finishBtn);
+    }
+}
+
+prevBtn.addEventListener('click', () => {
+    if (currentPage > 0) { currentPage--; renderPage(); resultDiv.innerHTML = ''; }
+});
+nextBtn.addEventListener('click', () => {
+    const totalPages = Math.ceil(currentQuestions.length / PER_PAGE);
+    if (currentPage < totalPages - 1) { currentPage++; renderPage(); resultDiv.innerHTML = ''; }
+});
+
+checkPageBtn.addEventListener('click', checkCurrentPage);
+checkAllBtn.addEventListener('click', checkAllQuestions);
+
+if (titleEl) {
+    if (isExamMode) {
+        titleEl.innerHTML = 'ЭКЗАМЕН: 100 случайных куэсчунов / 100 минут';
+    } else {
+        titleEl.innerHTML = 'По 10 квесчунов. Прям как мои анчоусы попросили.';
+    }
+}
+renderPage();
+if (isExamMode) {
+    startExamTimer();
+}
